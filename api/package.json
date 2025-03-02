@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "nodemon",
     "start": "node dist/index.js",
-    "build": "NODE_OPTIONS='--max-old-space-size=512' tsc"
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",
