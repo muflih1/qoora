@@ -19,7 +19,9 @@ import path from "path"
 
 const app: Application = express()
 
-app.use(express.json())
+app
+  .set("trust proxy", true)
+  .use(express.json())
   .use(express.urlencoded({ extended: true }))
   .use(helmet({
     crossOriginResourcePolicy: { policy: 'cross-origin' },
