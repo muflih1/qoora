@@ -5,12 +5,14 @@ import WebView from '../WebView';
 import BaseText from '../Typography/BaseText';
 import { useNavigate } from 'react-router';
 import useQuestionComposerDialog from '../QuestionComposerDialog/useQuestionComposerDialog';
+import { useViewer } from '../../contexts/ViewerContext';
 
 export default function FeedInlineComposer() {
   const navigate = useNavigate();
   const openQuestionComposerDialog = useQuestionComposerDialog({
     creationSource: 'top_of_feed',
   });
+  const viewer = useViewer();
 
   return (
     <WebView xstyle={styles.card}>
@@ -31,8 +33,8 @@ export default function FeedInlineComposer() {
           >
             <WebView xstyle={styles.profilePicWrapper}>
               <img
-                src='https://qph.cf2.quoracdn.net/main-thumb-1717237187-50-ckytscfzdwqbfvldwmobkqipfndzkvzg.jpeg'
-                alt='Profile photo'
+                src={viewer?.picture_url}
+                alt={`Profile picture of ${viewer?.given_name}`}
                 {...stylex.props(styles.profilePicImg)}
               />
             </WebView>

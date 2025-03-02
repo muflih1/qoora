@@ -43,6 +43,8 @@ create table if not exists questions (
   updated_time timestamptz default now()
 );
 
+create index idx_questions_author_id on questions(author_id);
+
 create table if not exists answers (
   id bigint not null primary key,
   answer_text text not null,
