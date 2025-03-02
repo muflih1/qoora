@@ -18,7 +18,7 @@ interface BaseTextLinkProps {
 
 export default function BaseTextLink({
   children,
-  color = "primary",
+  color,
   display,
   href,
   onPress,
@@ -40,7 +40,9 @@ export default function BaseTextLink({
     target={target == null ? undefined : target}
     xstyle={[
         styles.root,
-        styles[color],
+        color === "primary" && styles['primary'],
+        color === "brand" && styles['brand'],
+        color === "secondary" && styles['secondary'],
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         underlineOnHover === true && styles.underlineOnHover,
