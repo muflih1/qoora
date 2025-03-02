@@ -2,12 +2,6 @@ import { db } from "../config/db.js";
 import { snowflake } from "../lib/snowflake.js";
 import { catchAsync } from "../utils/catchAsync.js";
 import slugify from "slugify";
-import { pipeline } from "@xenova/transformers"
-
-async function getModel() {
-  const model = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2')
-  return model
-};
 
 export const listAnswersByQuestionHandler = catchAsync(async function (req, res) {
   const { qid } = req.params
@@ -85,11 +79,6 @@ export const searchQuestionsHandler = catchAsync(async function (req, res) {
   if (!search_query) {
     return res.status(400).json({ error: { message: 'search_query is required' } })
   }
-  const model = await getModel()
-  const embedding = await model(search_query as string, { pooling: 'mean', normalize: true })
-
-  const vector = Object.values(embedding.data).slice(0, 384)
-  const vectorString = `[${vector.join(',')}]`
 
   const result = await db.query(
     `
@@ -122,7 +111,7 @@ export const searchQuestionsHandler = catchAsync(async function (req, res) {
       ORDER BY similarity ASC NULLS LAST
       LIMIT 20;
     `,
-    [vectorString]
+    []
   )
 
   return res.send({
@@ -179,12 +168,6 @@ export const listQuestionsHandler = catchAsync(async function (req, res) {
 export const createQuestionHandler = catchAsync(async function (req, res) {
   const { question_text } = req.body
 
-  const model = await getModel()
-  const embedding = await model(question_text, { pooling: 'mean', normalize: true })
-
-  const vector = Object.values(embedding.data)
-  const vectorString = `[${vector.join(',')}]`
-
   const result = await db.query<{
     id: bigint;
     question_text: string;
@@ -199,8 +182,8 @@ export const createQuestionHandler = catchAsync(async function (req, res) {
   }>(
     `
       WITH new_question AS (
-        INSERT INTO questions (id, question_text, author_id, slug, question_embedding)
-        VALUES ($1, $2, $3, $4, $5)
+        INSERT INTO questions (id, question_text, author_id, slug)
+        VALUES ($1, $2, $3, $4)
         RETURNING id, question_text, author_id, slug, created_time
       )
       SELECT 
@@ -229,7 +212,7 @@ export const createQuestionHandler = catchAsync(async function (req, res) {
       ) a ON a.question_id = nq.id
       LEFT JOIN users u ON nq.author_id = u.id
     `,
-    [snowflake.nextId(), question_text, req.userId, slugify(question_text), vectorString]
+    [snowflake.nextId(), question_text, req.userId, slugify(question_text)]
   )
 
   const question = result[0]
