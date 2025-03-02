@@ -4,11 +4,10 @@ import { catchAsync } from "../utils/catchAsync.js";
 import slugify from "slugify";
 import { pipeline } from "@xenova/transformers"
 
-let _model: any
-
-  ; (async () => {
-    _model = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2')
-  })();
+async function getModel() {
+  const model = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2')
+  return model
+};
 
 export const listAnswersByQuestionHandler = catchAsync(async function (req, res) {
   const { qid } = req.params
@@ -86,12 +85,8 @@ export const searchQuestionsHandler = catchAsync(async function (req, res) {
   if (!search_query) {
     return res.status(400).json({ error: { message: 'search_query is required' } })
   }
-
-  if (!_model) {
-    return res.status(500).json({ error: { message: 'Service unavailable' } })
-  }
-
-  const embedding = await _model(search_query, { pooling: 'mean', normalize: true })
+  const model = await getModel()
+  const embedding = await model(search_query as string, { pooling: 'mean', normalize: true })
 
   const vector = Object.values(embedding.data).slice(0, 384)
   const vectorString = `[${vector.join(',')}]`
@@ -184,11 +179,8 @@ export const listQuestionsHandler = catchAsync(async function (req, res) {
 export const createQuestionHandler = catchAsync(async function (req, res) {
   const { question_text } = req.body
 
-  if (!_model) {
-    return res.status(500).json({ error: { message: 'Service unavailable' } })
-  }
-
-  const embedding = await _model(question_text, { pooling: 'mean', normalize: true })
+  const model = await getModel()
+  const embedding = await model(question_text, { pooling: 'mean', normalize: true })
 
   const vector = Object.values(embedding.data)
   const vectorString = `[${vector.join(',')}]`
@@ -304,7 +296,7 @@ export const getQuestionHandler = catchAsync(async function (req, res) {
     return res.status(404).json({ error: { message: 'Question not found' } })
   }
 
-  return res.json({question})
+  return res.json({ question })
 })
 
 export const updateQuestionHandler = catchAsync(async function (req, res) {
