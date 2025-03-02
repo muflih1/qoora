@@ -48,7 +48,8 @@ function _setcookie(res: Response, val: string) {
     path: '/',
     expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 364),
     secure: getEnv('NODE_ENV') === "production",
-    sameSite: 'none'
+    sameSite: 'none',
+    httpOnly: false
   })
 
   const prev = res.getHeader("Set-Cookie") || []
