@@ -3,6 +3,7 @@ type Envirorment = {
   PORT: string
   DATABASE_URI: string
   SESSION_SECRET: string
+  WEB_CLIENT_URI: string
   MAILING_EMAIL: string
   MAILING_CLIENT_ID: string
   MAILING_CLIENT_SECRET: string

@@ -25,7 +25,7 @@ app.use(express.json())
     crossOriginResourcePolicy: { policy: 'cross-origin' },
   }))
   .use(cors({
-    origin: 'http://localhost:5173',
+    origin: getEnv('WEB_CLIENT_URI'),
     credentials: true
   }))
   .use(morgan('common'))

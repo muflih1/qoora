@@ -12,7 +12,7 @@ create table if not exists users (
   family_name varchar(50),
   email varchar(255) not null unique,
   password_digest varchar(255) not null,
-  picture_url varchar(255) default "http://localhost:3000/media/default_profiles/default_profile_picture.webp",
+  picture_url text default 'https://qoora.onrender.com/media/default_profiles/default_profile_picture.webp',
   biography text,
   created_time timestamptz default now(),
   updated_time timestamptz default now()
@@ -53,7 +53,7 @@ create table if not exists answers (
   updated_time timestamptz default now()
 );
 
-create index idx_answers_quetion_id on answers(quetion_id);
+create index idx_answers_question_id on answers(question_id);
 create index idx_answers_author_id on answers(author_id);
 
 create table if not exists images (
