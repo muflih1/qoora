@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { UserRepository } from "../repositories/UserRepository.js";
 import { snowflake } from "../lib/snowflake.js";
-import bcrypt from "bcrypt"
+import bcrypt from "bcryptjs"
 import { createSession, createSessionCookie } from "../lib/session.js";
 import { catchAsync } from "../utils/catchAsync.js";
 import { sendVerificationEmail } from "../utils/mailer.js";
