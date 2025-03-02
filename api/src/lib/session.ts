@@ -118,7 +118,7 @@ function createSessionCookie(res: Response, val: string) {
     httpOnly: true,
     expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 364),
     secure: getEnv('NODE_ENV') === "production",
-    sameSite: "lax"
+    sameSite: "none"
   })
   _setcookie(res, data)
 }
@@ -131,7 +131,7 @@ function clearSessionCookie(res: Response) {
     expires,
     maxAge: Math.floor((expires.getTime() - Date.now()) / 1000),
     secure: getEnv('NODE_ENV') === "production",
-    sameSite: "lax"
+    sameSite: "none"
   })
   _setcookie(res, data)
 }
