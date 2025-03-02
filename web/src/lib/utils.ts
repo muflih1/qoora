@@ -103,7 +103,7 @@ export function useDebounced<T extends (...args: unknown[]) => void>(callback: T
     callbackRef.current = callback
   }, [callback])
 
-  const debouncedFunction = useStable(() => debounce((...args: Parameters<T>) => callbackRef.current(...args), { leading, wait }))
+  const debouncedFunction = useStable(() => debounce(((...args: unknown[]) => callbackRef.current(...args)) as T, { leading, wait }))
 
   useEffect(() => {
     return () => {

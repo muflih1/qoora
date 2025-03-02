@@ -4,6 +4,7 @@ import { promiseDone } from '../components/Signup/utils';
 import axios from '../lib/axios';
 import QuestionCard from '../components/QuestionCard';
 import QuestionCardSkeleton from '../components/QuestionCardSkeleton';
+import { Question } from '../types/entities';
 
 export default function Answer() {
   const [questions, setQuestions] = useState([]);
@@ -25,7 +26,7 @@ export default function Answer() {
     <div {...stylex.props(styles.container)}>
       <div {...stylex.props(styles.questionsCard)}>
         {questions.length > 0 &&
-          questions.map((question, index) => (
+          questions.map((question: Question, index) => (
             <QuestionCard
               key={`Question$${question.id}`}
               isLast={questions.length - 1 === index}

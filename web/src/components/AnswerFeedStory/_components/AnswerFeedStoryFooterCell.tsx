@@ -4,7 +4,7 @@ import BaseText from '../../Typography/BaseText';
 import useAnswerEditDialog from '../../AnswerEditDialog/useAnswerEditDialog';
 import BaseTextLink from '../../Button/BaseTextLink';
 
-export default function AnswerFeedStoryFooterCell(props) {
+export default function AnswerFeedStoryFooterCell(props: {viewer_can_delete: boolean; viewer_can_edit: boolean}) {
   const openAnswerEditDialog = useAnswerEditDialog();
 
   return (

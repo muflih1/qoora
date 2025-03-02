@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-type PossibleRef<T> = React.Ref<null | T>;
+type PossibleRef<T> = React.Ref<null | T> | undefined;
 
 export function useMergeRefs<T>(...refs: Array<PossibleRef<T>>) {
   return useMemo(() => mergeRefs(...refs), [refs]);
@@ -19,7 +19,7 @@ function mergeRefs<T>(...refs: Array<PossibleRef<T>>) {
           typeof cleanup === 'function' ? cleanup : () => ref(null)
         );
       } else if (typeof ref === 'object' && 'current' in ref) {
-        (ref as React.RefObject<T>).current = node;
+        (ref as React.RefObject<T | null>).current = node;
         cleanupsFnc.push(() => {
           ref.current = null;
         });

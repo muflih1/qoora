@@ -11,13 +11,13 @@ type Props = {
   id?: string;
   placeholder?: string
   name?: string
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
+  onChange?: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
 };
 
 export default function QSDTextInput({
   type,
   ref,
-  size,
+  size = "medium",
   xstyle,
   ...props
 }: Props) {

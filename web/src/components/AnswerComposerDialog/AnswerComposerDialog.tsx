@@ -6,8 +6,15 @@ import { isStringNotNullAndNotWhitespaceOnly } from '../../lib/validators';
 import { promiseDone } from '../Signup/utils';
 import axios from '../../lib/axios';
 import LoadingDots from '../LoadingDots';
+import { Question } from '../../types/entities';
 
-export default function AnswerComposerDialog({ onClose, question }) {
+export default function AnswerComposerDialog({
+  onClose,
+  question,
+}: {
+  onClose: () => void;
+  question: Question;
+}) {
   const [answerText, setAnswerText] = useState('');
   const [loading, setLoading] = useState(false);
 

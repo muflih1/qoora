@@ -1,22 +1,28 @@
 import { useMemo } from "react";
 
-type PossibleRef<T> = React.Ref<T | null>
+type PossibleRef<T> = React.Ref<T | null> | undefined
+
+export function useMergeRefs<T>(...refs: Array<PossibleRef<T>>) {
+  return useMemo(() => mergeRefs(...refs), [refs]);
+}
 
 function mergeRefs<T>(...refs: Array<PossibleRef<T>>) {
-  return (instance: T) => {
-    const cleanupFuncs: Array<() => void> = []
+  return (node: T | null) => {
+    const cleanupsFnc: Array<() => void> = [];
 
-    refs.forEach((ref) => {
+    refs.forEach(ref => {
       if (ref == null) return;
 
-      if (typeof ref === "function") {
-        const cleanup = ref(instance)
-        cleanupFuncs.push(
+      if (typeof ref === 'function') {
+        const cleanup = ref(node);
+        cleanupsFnc.push(
           typeof cleanup === 'function' ? cleanup : () => ref(null)
-        )
+        );
       } else if (typeof ref === 'object' && 'current' in ref) {
-        (ref as React.RefObject<T>).current = instance
-        cleanupFuncs.push(() => (ref as React.RefObject<T>).current = null)
+        (ref as React.RefObject<T | null>).current = node;
+        cleanupsFnc.push(() => {
+          ref.current = null;
+        });
       } else {
         console.error(
           `mergeRefs cannot handle refs of type boolean, number, or string. Received ref: ${String(
@@ -24,14 +30,10 @@ function mergeRefs<T>(...refs: Array<PossibleRef<T>>) {
           )} of type ${typeof ref}`
         );
       }
-    })
+    });
 
     return () => {
-      cleanupFuncs.forEach(func => func())
-    }
-  }
-}
-
-export function useMergeRefs<T>(...refs: Array<PossibleRef<T>>) {
-  return useMemo(() => mergeRefs(...refs), [refs])
+      cleanupsFnc.forEach(fn => fn());
+    };
+  };
 }

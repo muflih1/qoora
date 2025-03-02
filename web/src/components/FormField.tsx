@@ -9,7 +9,7 @@ interface FormFieldProps {
   name?: string;
   label?: string;
   value: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   placeholder?: string;
   error?: string;
   ref?: React.Ref<HTMLInputElement>;

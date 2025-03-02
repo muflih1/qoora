@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router';
 
 const MAX_QUESTION_TEXT_CHAR_LENGTH = 250;
 
-export default function QuestionComposerDialog({ onClose }) {
+export default function QuestionComposerDialog({ onClose }: {onClose(): void}) {
   const [questionText, setQuestionText] = useState('');
   const [loading, setLoading] = useState(false);
   const textRef = useRef<HTMLTextAreaElement>(null);

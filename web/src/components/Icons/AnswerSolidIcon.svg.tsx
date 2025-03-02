@@ -1,4 +1,4 @@
-export default function AnswerSolidIconSvg(props) {
+export default function AnswerSolidIconSvg(props: any) {
   return (
     <svg
       width='24'

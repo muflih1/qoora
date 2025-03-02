@@ -1,4 +1,4 @@
-export default function HomeSolidIconSvg(props) {
+export default function HomeSolidIconSvg(props: any) {
   return (
     <svg
       width='24'

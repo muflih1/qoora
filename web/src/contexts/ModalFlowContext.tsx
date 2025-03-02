@@ -12,7 +12,7 @@ interface DialogProps {
   onClose: (...args: unknown[]) => void;
 }
 
-interface DiaglogConfig<Props> {
+interface DiaglogConfig<Props = object> {
   dialog: React.ComponentType<Props & DialogProps>;
   dialogProps: Props;
   onClose?: (...args: unknown[]) => void;
@@ -27,7 +27,7 @@ type CreateDialogConfig = <Props>(
 
 const DialogContext = createContext<CreateDialogConfig>(undefined!);
 
-export default function DialogProvider({ children }) {
+export default function DialogProvider({ children }: {children: React.ReactNode}) {
   const [dialogConfigs, setDialogConfigs] = useState<DiaglogConfig<unknown>[]>(
     []
   );
@@ -44,20 +44,19 @@ export default function DialogProvider({ children }) {
       onClose?: (...args: unknown[]) => void,
       config?: { replaceCurrentDialog?: boolean }
     ) => {
-      setDialogConfigs(prevDialogConfigs => {
+      setDialogConfigs((prevDialogConfigs): DiaglogConfig<unknown>[] => {
         const replaceCurrentDialog = config?.replaceCurrentDialog ?? false;
         const newDialogConfig = {
-          dialog: Dialog,
-          dialogProps: props,
+          dialog: Dialog as React.ComponentType<unknown & DialogProps>,
+          dialogProps: props as unknown,
           onClose,
         };
+      
         return replaceCurrentDialog
-          ? [
-              ...prevDialogConfigs.slice(0, prevDialogConfigs.length - 1),
-              newDialogConfig,
-            ]
+          ? [...prevDialogConfigs.slice(0, prevDialogConfigs.length - 1), newDialogConfig]
           : [...prevDialogConfigs, newDialogConfig];
       });
+      
     },
     []
   );
@@ -83,6 +82,8 @@ export default function DialogProvider({ children }) {
   );
 
   return (
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     <DialogContext.Provider value={createDialogConfig}>
       {children}
       <div>
@@ -114,7 +115,7 @@ function DialogController<Props>({
   removeDialogConfig,
 }: DialogControllerProps<Props>) {
   const { dialog: Dialog, dialogProps } = dialogConfig;
-  const requestRef = useRef(null);
+  const requestRef = useRef<number | null>(null);
 
   useEffect(() => {
     return () => {

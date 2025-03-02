@@ -6,8 +6,8 @@ import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import useQuestionComposerDialog from './QuestionComposerDialog/useQuestionComposerDialog';
 import HomeSolidIconSvg from './Icons/HomeSolidIcon.svg';
-import AnswerSolidIconSvg from './Icons/AnswerSolidIcon.svg';
 import HomeFilledIconSvg from './Icons/HomeFilledIcon.svg';
+import AnswerSolidIconSvg from './Icons/AnswerSolidIcon.svg';
 import AnswerFilledIconSvg from './Icons/AnswerFilledIcon.svg';
 
 const navigationMenus = [
@@ -97,7 +97,17 @@ export default function Navbar() {
   );
 }
 
-function MenuItem({ link, tooltipText, Icon, ActiveIcon }) {
+function MenuItem({
+  link,
+  tooltipText,
+  Icon,
+  ActiveIcon,
+}: {
+  link: string;
+  tooltipText: string;
+  Icon: React.ComponentType<React.SVGAttributes<HTMLOrSVGElement>>;
+  ActiveIcon: React.ComponentType<React.SVGAttributes<HTMLOrSVGElement>>;
+}) {
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -211,7 +221,7 @@ const styles = stylex.create({
     marginStart: 'auto',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   logoText: {
     display: 'flex',

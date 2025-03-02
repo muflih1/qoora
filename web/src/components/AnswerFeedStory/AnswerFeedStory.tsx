@@ -1,6 +1,5 @@
 import * as stylex from '@stylexjs/stylex';
 import BaseText from '../Typography/BaseText';
-import TextLink from '../TextLink';
 import AnswerFeedStoryAvatarCell from './_components/AnswerFeedStoryAvatarCell';
 import { formatDate } from '../../lib/utils';
 import { useState } from 'react';
@@ -16,12 +15,15 @@ type Props = {
     id: string
     given_name: string
     family_name?: string | null
+    picture_url: string
   }
   question: {
     id: string
     question_text: string
     url: string
   }
+  viewer_can_delete: boolean
+  viewer_can_edit: boolean
 }
 
 export default function AnswerFeedStory(props: Props) {
@@ -32,7 +34,7 @@ export default function AnswerFeedStory(props: Props) {
       <div {...stylex.props(styles.header)}>
         <AnswerFeedStoryAvatarCell {...props.owner} />
         <div>
-          <TextLink
+          <BaseTextLink
             href={`/profile/${props.owner.id}`}
             color='primary'
             underlineOnHover
@@ -44,8 +46,8 @@ export default function AnswerFeedStory(props: Props) {
             >
               {props.owner.given_name}
             </BaseText>
-          </TextLink>
-          <TextLink
+          </BaseTextLink>
+          <BaseTextLink
             href={props.url}
             color='secondary'
             underlineOnHover
@@ -57,11 +59,11 @@ export default function AnswerFeedStory(props: Props) {
             >
               {formatDate(props.created_time)}
             </BaseText>
-          </TextLink>
+          </BaseTextLink>
         </div>
       </div>
       <div {...stylex.props(styles.questionContainer)}>
-        <TextLink
+        <BaseTextLink
           href={props.question.url}
           color='primary'
           underlineOnHover
@@ -74,7 +76,7 @@ export default function AnswerFeedStory(props: Props) {
           >
             {props.question.question_text}
           </BaseText>
-        </TextLink>
+        </BaseTextLink>
       </div>
       <div>
         {props.answer_text.length > 600 ? (

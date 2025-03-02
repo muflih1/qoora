@@ -1,22 +1,11 @@
 import { useCallback, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { useDialog } from '../../../contexts/ModalFlowContext';
 import {
   isStringEmail,
   isStringNotNullAndNotWhitespaceOnly,
 } from '../../../lib/validators';
-import { pushToast } from '../../../contexts/Toast/pushToast';
 import useSignInSubmit from './useSignInSubmit';
-import SignUpMultiStepDialog from '../../Signup/SignUpMutiStepDialog';
 
 export default function useSignIn() {
-  const createDialogConfig = useDialog();
-
-  const openSignUpDialog = useCallback(() => {
-    createDialogConfig(SignUpMultiStepDialog, {}, null, {
-      replaceCurrentDialog: true,
-    });
-  }, [createDialogConfig]);
-
   const submitRef = useRef<HTMLInputElement>(null);
 
   const [email, setEmail] = useState('');
@@ -69,7 +58,7 @@ export default function useSignIn() {
         if (emailRef.current) {
           emailRef.current.focus();
         }
-        pushToast('Enter your Quoora email.');
+        alert('Enter your Quoora email.');
         return;
       }
       if (!isStringEmail(email)) {
@@ -94,7 +83,6 @@ export default function useSignIn() {
 
   return {
     submitRef,
-    openSignUpDialog,
     handleSubmit,
     isDisabled,
     email,

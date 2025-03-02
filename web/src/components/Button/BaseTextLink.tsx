@@ -10,7 +10,7 @@ interface BaseTextLinkProps {
   target?: React.AnchorHTMLAttributes<HTMLAnchorElement>['target'];
   textDecoration?: React.CSSProperties['textDecoration'];
   underlineOnHover?: boolean;
-  weight?: 'normal' | 'semibold' | 'bold' | 'heavy';
+  weight?: 'semibold' | 'bold' | 'heavy';
   ref?: React.Ref<HTMLDivElement>;
   display?: 'inline' | 'block';
   role?: React.HTMLAttributes<HTMLElement>['role'];
@@ -18,7 +18,7 @@ interface BaseTextLinkProps {
 
 export default function BaseTextLink({
   children,
-  color,
+  color = "primary",
   display,
   href,
   onPress,
@@ -41,9 +41,13 @@ export default function BaseTextLink({
     xstyle={[
         styles.root,
         styles[color],
-        underlineOnHover && styles.underlineOnHover,
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        underlineOnHover === true && styles.underlineOnHover,
         textDecoration === 'undeline' && styles.underline,
-        styles[weight],
+        weight === "semibold" && styles['semibold'],
+        weight === "bold" && styles["bold"],
+        weight === "heavy" && styles["heavy"],
       ]}
     {...props}
     >

@@ -5,8 +5,12 @@ import Button from './Button/Button';
 import BaseTextLink from './Button/BaseTextLink';
 import AnswerSolidIconSvg from './Icons/AnswerSolidIcon.svg';
 import useAnswerComposerDialog from './AnswerComposerDialog/useAnswerComposerDialog';
+import { Question } from '../types/entities';
 
-export default function QuestionCard({ isLast, ...props }) {
+export default function QuestionCard({
+  isLast,
+  ...props
+}: { isLast: boolean } & Question) {
   const openAnswerComposerDialog = useAnswerComposerDialog({
     question: props,
   });

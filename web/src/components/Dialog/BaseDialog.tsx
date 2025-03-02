@@ -37,7 +37,7 @@ export default function BaseDialog({
   closeWithMask = true,
 }: // subtitleText,
 BaseDialogProps) {
-  const nodeRef = useRef(null);
+  const nodeRef = useRef<HTMLElement>(null);
   const mergedRef = useMergeRefs(nodeRef, ref);
   const onCloseRef = useRef(onClose);
 
@@ -70,10 +70,10 @@ BaseDialogProps) {
         if (e.key === 'Tab') {
           if (e.shiftKey && document.activeElement === firstElement) {
             e.preventDefault();
-            lastElement.focus();
+            (lastElement as HTMLElement).focus();
           } else if (!e.shiftKey && document.activeElement === lastElement) {
             e.preventDefault();
-            firstElement.focus();
+            (firstElement as HTMLElement).focus();
           }
         }
       };

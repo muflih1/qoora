@@ -4,9 +4,12 @@ export interface Question {
   asker: {
     id: string
     given_name: string
+    picture_url: string
   }
   url: string
   slug: string
+  viewer_has_answered: boolean
+  answer_count: number
 }
 
 export interface Answer {
@@ -21,4 +24,6 @@ export interface Answer {
     picture_url: string
   }
   question: Question
+  viewer_can_delete: boolean
+  viewer_can_edit: boolean
 }

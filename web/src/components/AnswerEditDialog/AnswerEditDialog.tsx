@@ -1,6 +1,6 @@
 import BaseDialog from "../Dialog/BaseDialog";
 
-export default function AnswerEditDialog({onClose}) {
+export default function AnswerEditDialog({onClose}: {onClose: () => void}) {
   return (
     <BaseDialog
       titleText="Edit your answer"

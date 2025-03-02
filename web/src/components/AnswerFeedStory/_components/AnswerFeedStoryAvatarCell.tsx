@@ -1,7 +1,11 @@
 import * as stylex from '@stylexjs/stylex';
 import BaseLink from '../../Button/BaseLink';
 
-export default function AnswerFeedStoryAvatarCell(props) {
+export default function AnswerFeedStoryAvatarCell(props: {
+  id: string;
+  picture_url: string;
+  given_name: string;
+}) {
   return (
     <div {...stylex.props(styles.root)}>
       <BaseLink href={`/profile/${props.id}`}>

@@ -139,7 +139,7 @@ export default function ClickableText({
     [onPress]
   );
 
-  let adjustedDirection: string;
+  let adjustedDirection: string = '';
   switch (direction) {
     case 'none':
       break;
@@ -151,7 +151,7 @@ export default function ClickableText({
 
   const isAnchorOrButton = Component === Link || accessibilityRole === 'button';
 
-  let tabIndex: number;
+  let tabIndex: number = -1;
   if (isAnchorOrButton) {
     if (disabled) {
       tabIndex = -1;
