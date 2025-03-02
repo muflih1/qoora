@@ -1,6 +1,7 @@
 import crypto from "crypto";
 import { NextFunction, Request, Response } from "express";
 import cookie from "cookie"
+import { getEnv } from "../env.js";
 
 declare global {
   namespace Express {
@@ -46,6 +47,7 @@ function _setcookie(res: Response, val: string) {
   const data = cookie.serialize("csrftoken", val, {
     path: '/',
     expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 364),
+    secure: getEnv('NODE_ENV') === "production",
     sameSite: 'none'
   })
 
