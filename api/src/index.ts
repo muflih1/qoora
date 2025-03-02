@@ -28,7 +28,7 @@ app.use(express.json())
     origin: getEnv('WEB_CLIENT_URI'),
     credentials: true
   }))
-  .use(morgan('common'))
+  .use(morgan('combined'))
   .use(csrf)
   .use(deserializeSession)
 
