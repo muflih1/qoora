@@ -39,7 +39,7 @@ app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/questions', questionRouter)
 app.use('/api/v1/answers', answerRouter)
 app.use('/api/v1/votes', voteRouter)
-app.get('/api/v1/auth/viewer', validateCsrftoken, auth, async (req, res) => {
+app.get('/api/v1/auth/viewer', auth, async (req, res) => {
   const user = await userRepository.getById(req.userId)
   res.send({ viewer: {...user, password_digest: undefined} })
 })
