@@ -24,7 +24,7 @@ export const createAccountHandler = catchAsync(async function (req, res, next) {
     })
     const { token } = await createSession({
       userId: user.id,
-      ipAddress: req.socket.remoteAddress ?? req.ip,
+      ipAddress: req.headers['x-forwarded-for'] as string || req.ip || req.socket.remoteAddress,
       userAgent: req.headers['user-agent']
     })
     createSessionCookie(res, token)
@@ -50,7 +50,7 @@ export const loginHandler = catchAsync(async (req: Request, res: Response) => {
   }
   const { token } = await createSession({
     userId: user.id,
-    ipAddress: req.socket.remoteAddress ?? req.ip,
+    ipAddress: req.headers['x-forwarded-for'] as string || req.ip || req.socket.remoteAddress,
     userAgent: req.headers['user-agent']
   })
   createSessionCookie(res, token)
