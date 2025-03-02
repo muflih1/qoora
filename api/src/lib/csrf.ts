@@ -46,6 +46,7 @@ function _setcookie(res: Response, val: string) {
   const data = cookie.serialize("csrftoken", val, {
     path: '/',
     expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 364),
+    sameSite: 'lax'
   })
 
   const prev = res.getHeader("Set-Cookie") || []
