@@ -1,5 +1,5 @@
-import { db } from "../config/db";
-import { catchAsync } from "../utils/catchAsync";
+import { db } from "../config/db.js";
+import { catchAsync } from "../utils/catchAsync.js";
 
 export const voteChangeMutationHandler = catchAsync(async function (req, res) {
   const { answer_id } = req.params;

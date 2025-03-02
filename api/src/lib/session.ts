@@ -1,9 +1,9 @@
 import crypto from "crypto"
 import cookie from "cookie"
-import { getEnv } from "../env"
+import { getEnv } from "../env.js"
 import { NextFunction, Request, Response } from "express"
-import { SessionRepository, SessionTable } from "../repositories/SessionRepository"
-import { snowflake } from "./snowflake"
+import { SessionRepository, SessionTable } from "../repositories/SessionRepository.js"
+import { snowflake } from "./snowflake.js"
 
 declare global {
   namespace Express {

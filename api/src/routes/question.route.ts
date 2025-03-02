@@ -1,7 +1,15 @@
 import { Router } from "express";
-import { createQuestionHandler, getQuestionHandler, listAnswersByQuestionHandler, listQuestionsHandler, relatedQuestionsHandler, searchQuestionsHandler, updateQuestionHandler } from "../controllers/question.controller";
-import { validateCsrftoken } from "../lib/csrf";
-import auth from "../middlewares/auth";
+import { 
+  createQuestionHandler, 
+  getQuestionHandler, 
+  listAnswersByQuestionHandler, 
+  listQuestionsHandler, 
+  relatedQuestionsHandler, 
+  searchQuestionsHandler, 
+  updateQuestionHandler 
+} from "../controllers/question.controller.js";
+import { validateCsrftoken } from "../lib/csrf.js";
+import auth from "../middlewares/auth.js";
 
 const router = Router()
 

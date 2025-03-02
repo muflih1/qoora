@@ -1,5 +1,11 @@
 import { Router } from "express";
-import { createAccountHandler, emailAvailableHandler, loginHandler, sendEmailConfirmationEmailHandler, verfyEmailConfirmationCodeHandler } from "../controllers/auth.controller";
+import { 
+  createAccountHandler, 
+  emailAvailableHandler, 
+  loginHandler, 
+  sendEmailConfirmationEmailHandler, 
+  verfyEmailConfirmationCodeHandler 
+} from "../controllers/auth.controller.js";
 
 const router = Router()
 

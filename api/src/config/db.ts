@@ -1,5 +1,5 @@
 import pg from "pg"
-import { getEnv } from "../env"
+import { getEnv } from "../env.js"
 
 class Database {
   static instance: Database

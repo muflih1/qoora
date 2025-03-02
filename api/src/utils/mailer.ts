@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer"
 import { google } from "googleapis"
-import { getEnv } from "../env"
+import { getEnv } from "../env.js"
 
 const { OAuth2 } = google.auth
 

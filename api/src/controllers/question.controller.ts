@@ -1,6 +1,6 @@
-import { db } from "../config/db";
-import { snowflake } from "../lib/snowflake";
-import { catchAsync } from "../utils/catchAsync";
+import { db } from "../config/db.js";
+import { snowflake } from "../lib/snowflake.js";
+import { catchAsync } from "../utils/catchAsync.js";
 import slugify from "slugify";
 import { pipeline } from "@xenova/transformers"
 

@@ -1,4 +1,3 @@
-
 class Snowflake {
   private static _instance: Snowflake
   private _epoch: number

@@ -1,7 +1,12 @@
 import { Router } from "express";
-import { validateCsrftoken } from "../lib/csrf";
-import auth from "../middlewares/auth";
-import { createAnswerHandler, getSingleAnswerQueryHandler, multiFeedQueryHandler, updateAnswerHandler } from "../controllers/answer.controller";
+import { validateCsrftoken } from "../lib/csrf.js";
+import auth from "../middlewares/auth.js";
+import { 
+  createAnswerHandler, 
+  getSingleAnswerQueryHandler, 
+  multiFeedQueryHandler, 
+  updateAnswerHandler 
+} from "../controllers/answer.controller.js";
 
 const router = Router()
 
